@@ -205,9 +205,9 @@ document.addEventListener('keyup', function(e) {
 
 // ON CRÉE LA FONCTION POUR FAIRE SE DÉPLACER LA RAQUETTE
 function movePaddle() {
-    if (leftArrow && paddle.x > 0) {
+    if (leftArrow && paddle.x > -5) {
         paddle.x -= paddle.dx;
-    } else if (rightArrow && paddle.x + paddle.w < canvas.width) {
+    } else if (rightArrow && paddle.x + paddle.w < canvas.width + 5) {
         paddle.x += paddle.dx;
     }
 }
