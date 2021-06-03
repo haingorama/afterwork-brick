@@ -9,18 +9,24 @@ body {
   color: #fff;
   background-color: #0a0014;
   /* background-color: #141428; */
+  background-size: cover;
   overflow: hidden;
+  font-family: 'Lekton', sans-serif;
 }
 
 h1 {
-  margin: 60px 0;
-  font-size: 2.3rem;
+  margin: 50px 0;
+  font-size: 2.6rem;
   color: lightblue;
+  font-family: PressStart2PRegular;
+  font-weight: bold;
+  letter-spacing: -2px;
+  -webkit-filter: blur(1px);
 }
 
 h1 a:hover {
 text-decoration: none;
-color: hotpink;
+color: #a0a0a0;
 font-size: 2.4rem;
 }
 
@@ -36,10 +42,8 @@ font-family: 'PressStart2PRegular';
 .game {
   position: relative;
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: row;
-  margin: 60px 0 0 60px;
+  margin: 50px 0;
+  -webkit-filter: blur(0.4px);
 }
 
 .btn {
@@ -59,7 +63,7 @@ font-family: 'PressStart2PRegular';
   justify-content: center;
   align-items: center;
   flex-flow: column;
-  background-color: #6198d8;
+  border: 1px solid #6198d8;
   color: white;
   width: 350px;
   padding: 20px;
@@ -82,42 +86,15 @@ transition: opacity .3s ease-in, visibility .3s ease-in; */
   margin-top: 0;
 }
 
-/* .btn:hover {
-background-color: #376599;
-}
-
-.btn:focus {
-outline: none;
-}
-
-.btn:active {
-transform: scale(.98);
-}
-
-.rules-btn {
-position: absolute;
-left: 30px;
-top: 30px;
-} */
-
 .sound-container {
-<<<<<<< HEAD
-    position: absolute;
-    top: 80%;
-=======
   position: absolute;
-  top: 65%;
->>>>>>> 4847c478b7fa4a0c41e879eedddf52f9b0b9b980
+  top: 60%;
 }
 
 .sound-container #sound {
   width: 40px;
   height: auto;
   transition: .1s ease-in-out;
-}
-
-#sound:hover {
-  /* box-shadow: 1px 1px 3px rgba(255, 255, 255, .5); */
 }
 
 #game-over {
@@ -131,7 +108,7 @@ top: 30px;
   position: absolute;
   visibility: visible;
   width: 300px;
-  left: 30%;
+  left: 37%;
 }
 
 #you-won,
@@ -145,9 +122,10 @@ top: 30px;
   padding: 4px 8px;
   line-height: 1.5;
   border: 1px solid #6198d8;
-  border-radius: 4px;
+  border-radius: 7px;
   text-align: center;
   transition: .1s ease-in-out;
+  background-color: #0a0014;
 }
 
 #restart:hover {
@@ -155,19 +133,22 @@ top: 30px;
 }
 
 #canvas {
-  background-color: #111;
+  background-color: #0a0014;
   opacity: unset;
   border-radius: 10px;
   display: block;
-  margin: 0 60px;
+  margin: 0 40px 50px;
+  z-index: 0;
+  
 }
 
 .user-account {
-  border: 1px solid hotpink;
-  border-radius: 10px;
-  width: 340px;
+  border: 1px solid #6198d8;
+  border-radius: 4px;
+  width: 300px;
   height: 450px;
   padding: 10px;
+  margin-left: 50px;
 }
 
 /* Background Stars */
@@ -315,8 +296,8 @@ top: 15%;
 left: 2%;
 width: 96%;
 text-align: center;
-font-size: 80px;
-letter-spacing: -6px;
+font-size: 4rem;
+letter-spacing: -3px;
 }
 
 .title2font {

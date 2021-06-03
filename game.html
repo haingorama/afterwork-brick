@@ -13,6 +13,7 @@
         <title>Cassebrique</title>
     
         <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Lekton:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/press-start-2p" type="text/css"/><link rel="stylesheet" href="./style.css">
     </head>
 </head>
@@ -24,10 +25,12 @@
 
     <h1><a href="index.html">Cassebrique</a></h1>
 
-    <section id='start-game' id="game" class="game">
+    <section id='start-game' id="game" class="game crt">
         <div class="user-account">
             <h2>Compte joueur</h2>
+            <p><br>Mettre ici le nom du joueurs <br><br>Avec peut-être son réulstat/score ?</p>
         </div>
+
         <div class="inside-canvas">
             <div id="game-over">
                 <img src="images/you-won.png" alt="" id="you-won">
@@ -37,10 +40,11 @@
             </div>
             <canvas class="justify-content-center" id="canvas" width="550" height="450"></canvas>
         </div>
+        
         <div>
             <div class="rules" id="rules">
                 <h2>Règles de jeu</h2>
-                <p>Utilisez les touches gauche ◄ et droite ► du clavier pour diriger la planche <br> La balle doit rebondir sur la planche pour rentrer briser les briques</p>
+                <p>Diriger la planche avec les touches [◄ gauche] et [droite ►] du clavier. <br> Briser toutes les briques pour augmanter de niveau.</p>
                 <p>Si elle tombe à même le sol, vous perdez une vie. Le jeu s'arrete dès que vous n'avez plus de vie</p>
             </div>
             <div class="sound-container">
