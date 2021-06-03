@@ -7,8 +7,6 @@ const animationClasses = {
     in: 'slide-in-backwards',
     out: 'slide-out-backwards' } };
 
-
-
 /**
  *
  *    Selectors
@@ -20,7 +18,6 @@ const slidesQuery = document.querySelectorAll('[data-slide]');
 const slides = _.chain(slidesQuery).
 filter(slide => slide.getAttribute('data-slide')).
 value();
-
 
 /**
  *
@@ -86,3 +83,60 @@ controlNext.addEventListener('click', () => {
 const current = slides[index];
 current.classList.add('active');
 animateClass(current, 'forwards', 'in', timing);
+
+// **************************
+// Accueil 
+// **************************
+
+var startingShips = 3; //  number of starting ships
+var thrustForce = 2000; //  px/sec
+var turnRate = 300; //  deg/sec
+var playerDamping = 0.99; //  % velocity preserved per second
+var rotationDamping = 0.95; // % rotation velocity preserved
+var playerExplosion = 100; //  particles
+var starfieldSize = 140; //  number of stars
+var starSize = 3; //  px diameter
+var parallaxStars = 0.15;  // % stars that move wrt player input
+
+var startingAsteroids = 2; //  number of asteroids on level 1
+var startAsteroidRadius = 125; //  px
+var minAsteroidRadius = 30; //  px
+var asteroidStartVelocity = 8000; //  px/sec
+var asteroidCollisionDust = 60; //  particles
+
+var explosionForce = 6;//12.5; //  px/sec
+var particleDamping = 0.99; //  % velocity preserved per second
+var dustSize = 5; //  px
+
+var startBulletDamage = 10;
+var bulletSpeed = 300; //  px/sec
+var bulletDelay = 0.3; //  sec
+var bulletParticles = 10; //  particles per impact
+
+var DtR = Math.PI / 180;
+var width = parseFloat($('#game').parent().css('width'));
+var height = window.innerHeight;
+var deathOpacity = 0.1; //  dust fades to here and dies
+var sleepVelocity = 1; //  moving things stop below this speed
+
+$(document).ready(function() {
+  $('#startbutton').on('click', GameStart);
+  $('#dev').on('click', DevInfo);
+  $('#info').on('click', GameInfo);
+  GameInfo();
+});
+
+function GameStart() {
+
+  //  hide the title screen
+  $('#title-home').hide();
+  $('#game').show();
+
+  $('body').on('keypress', GameKeyListener);
+  $('body').on('keydown', GameKeyListener);
+
+  if (gameTimer !== null) {
+    window.cancelAnimationFrame(gameTimer);
+  }
+  gameTimer = window.requestAnimationFrame(GameUpdate);
+}

@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -13,40 +12,18 @@
     <title>Cassebrique</title>
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="fonts/GeneraleStation.ttf">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/press-start-2p" type="text/css"/><link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-  <div class="stars"></div>
-  <div class="twinkling"></div>
-  
-    <h1>Cassebrique</h1>
-
-    <section id="game" class="game">
-        <div class="user-account">
-            <h2>Compte joueur</h2>
-        </div>
-        <div class="inside-canvas">
-            <div id="game-over">
-                <img src="images/you-won.png" alt="" id="you-won">
-                <img src="images/game-over.png" alt="" id="you-lose">
-                <p id="citation"></p>
-                <button type="button" id="restart" class="btn btn-outline-primary">Rejouer</button>
-            </div>
-            <canvas class="justify-content-center" id="canvas" width="550" height="450"></canvas>
-        </div>
-        <div>
-            <div class="rules" id="rules">
-                <h2>Règles de jeu</h2>
-                <p>Utilisez les touches gauche ◄ et droite ► du clavier pour diriger la planche <br> La balle doit rebondir sur la planche pour rentrer briser les briques</p>
-                <p>Si elle tombe à même le sol, vous perdez une vie. Le jeu s'arrete dès que vous n'avez plus de vie</p>
-            </div>
-            <div class="sound-container">
-                <img src="images/sound_on.png" alt="" id="sound">
-            </div>
-        </div>
-    </section>
+    <div id='title-home' class='crt'>
+        <div class='game-element gamefont titlefont'>TROUVONS 1 NOM SVP<span id='dev'></span></div>  
+        <div class='game-element gamefont titlefont title2font'>Passerelle Numérique | Afterwork project</div>
+        <div id='startbutton' class='game-element gamefont startfont'><a href="game.html">Jouer</a></div>
+        <div class='game-element gamefont devfont'>by <a class='devlink' href='start-game'>Promo7 team</a>
+        <br><br><span>&copy; 2021</span>&nbsp;</div>
+    </div>
 
     <!-- Background -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js'></script><script  src="script.js"></script>
