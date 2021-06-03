@@ -24,15 +24,13 @@ let score = 0;
 let level = 1;
 
 // IMPORTATION DES ÉLÉMENTS DU DOM
-// const rules = document.getElementById('rules');
-// const rulesBtn = document.getElementById('rules-btn');
-// const closeBtn = document.getElementById('close-btn');
 const game_over = document.getElementById('game-over');
 const youWon = document.getElementById('you-won');
 const youLose = document.getElementById('you-lose');
 const restart = document.getElementById('restart');
 const sound = document.getElementById('sound');
 const citations = document.getElementById('citation');
+const start_btn = document.getElementById('start_btn');
 
 // PROPRIÉTÉS DE LA RAQUETTE
 const paddle = {
@@ -203,7 +201,7 @@ document.addEventListener('keyup', function(e) {
     }
 });
 
-// ON CRÉE LA FONCTION POUR FAIRE SE DÉPLACER LA RAQUETTE
+// ON CRÉE LA FONCTION POUR FAIRE DÉPLACER LA RAQUETTE
 function movePaddle() {
     if (leftArrow && paddle.x > 0) {
         paddle.x -= paddle.dx;
@@ -229,16 +227,6 @@ function showStats(img, iposX, iposY, text = '', tPosX = null, tPosY = null) {
     ctx.fillText(text, tPosX, tPosY)
     ctx.drawImage(img, iposX, iposY, width = 20, height = 20);
 }
-
-// AFFICHAGE DES RÈGLES DU JEU
-// rulesBtn.addEventListener('click', function() {
-//     rules.classList.add('show');
-//     isPaused = true;
-// });
-// closeBtn.addEventListener('click', function() {
-//     rules.classList.remove('show');
-//     isPaused = false;
-// });
 
 // ON CRÉE LA FONCTION QUI PERMET D'ARRETER LA PARTIE QUAND LA VIE DU JOUEUR EST À 0
 function gameover() {
@@ -357,7 +345,7 @@ function loop() {
     };
 };
 
-loop();
+// loop();
 //  GESTION DES ÉVENEMENTS AUDIO
 sound.addEventListener('click', audioManager);
 
@@ -378,4 +366,10 @@ function audioManager() {
 // RELANCER LE JEU
 restart.addEventListener('click', function() {
     location.reload();
+});
+
+start_btn.addEventListener('click', function() {
+    loop();
+    start_btn.style.visibility = 'hidden';
+
 })

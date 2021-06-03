@@ -31,7 +31,7 @@
                 <img src="images/you-won.png" alt="" id="you-won">
                 <img src="images/game-over.png" alt="" id="you-lose">
                 <p id="citation"></p>
-                <button type="button" id="restart" class="btn btn-outline-primary">Rejouer</button>
+                <input type="button" value="Restart" class="btn btn-outline-primary" id="restart">
             </div>
             <canvas class="justify-content-center" id="canvas" width="550" height="450"></canvas>
         </div>
@@ -39,12 +39,15 @@
         <div>
             <div class="rules" id="rules">
                 <h2>Règles de jeu</h2>
-                <p>Utilisez les touches gauche ◄ et droite ► du clavier pour diriger la planche <br> La balle doit rebondir sur la planche pour rentrer briser les briques</p>
-                <p>Si elle tombe à même le sol, vous perdez une vie. Le jeu s'arrete dès que vous n'avez plus de vie</p>
+                <p>Utilisez les touches gauche ◄ et droite ► du clavier pour diriger la planche <br> La balle doit rebondir sur la planche pour atteindre et briser les briques</p>
+                <p>Si la balle tombe au sol, vous perdez une vie. Chaque niveau supérieur franchis vous gagnerez une vie de plus. Le jeu s'arrete dès que vous n'avez plus de vie</p>
+                <p>Bonne chance et bon game</p>
             </div>
             <div class="sound-container">
                 <img src="images/sound_on.png" alt="" id="sound">
+                <input class="btn justify-content-end btn-info" type="button" id="start_btn" value="Start">
             </div>
+
         </div>
 
     </section>
