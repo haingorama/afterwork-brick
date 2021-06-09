@@ -6,10 +6,10 @@ canvas.style.border = "1px solid #6198d8";
 ctx.lineheight = 1;
 
 // CONSTANTE NÉCESSAIRES
-const PADDLE_WIDTH = 100;
+const PADDLE_WIDTH = 200;
 const PADDLE_MARGIN_BOTTOM = 20;
 const PADDLE_HEIGHT = 10;
-const BALL_RADIUS = 5;
+const BALL_RADIUS = 10;
 const SCORE_UNIT = 9;
 const MAX_LEVEL = 6;
 const MAX_LIFE = 6;
@@ -22,17 +22,21 @@ let isPaused = false;
 let life = 3;
 let score = 0;
 let level = 1;
+let score_count = 0;
+let level_count = 0;
 
 // IMPORTATION DES ÉLÉMENTS DU DOM
-// const rules = document.getElementById('rules');
-// const rulesBtn = document.getElementById('rules-btn');
-// const closeBtn = document.getElementById('close-btn');
 const game_over = document.getElementById('game-over');
 const youWon = document.getElementById('you-won');
 const youLose = document.getElementById('you-lose');
 const restart = document.getElementById('restart');
 const sound = document.getElementById('sound');
 const citations = document.getElementById('citation');
+
+// IMPORTATION DE L'ÉLÉMENT HTML DU JOUEUR
+var nickname = document.getElementById('nickname');
+var score_max = document.getElementById('score_max');
+var level_max = document.getElementById('level_max');
 
 // PROPRIÉTÉS DE LA RAQUETTE
 const paddle = {
@@ -55,12 +59,12 @@ const ball = {
 
 // PROPRIÉTÉS DES BRIQUES
 const brickProp = {
-    row: 1,
-    column: 14,
-    w: 35,
-    h: 15,
+    row: 2,
+    column: 13,
+    w: 55,
+    h: 35,
     padding: 3,
-    offsetX: 12,
+    offsetX: 0,
     offsetY: 40,
     fillColor: '#fff',
     visible: true,
@@ -230,16 +234,6 @@ function showStats(img, iposX, iposY, text = '', tPosX = null, tPosY = null) {
     ctx.drawImage(img, iposX, iposY, width = 20, height = 20);
 }
 
-// AFFICHAGE DES RÈGLES DU JEU
-// rulesBtn.addEventListener('click', function() {
-//     rules.classList.add('show');
-//     isPaused = true;
-// });
-// closeBtn.addEventListener('click', function() {
-//     rules.classList.remove('show');
-//     isPaused = false;
-// });
-
 // ON CRÉE LA FONCTION QUI PERMET D'ARRETER LA PARTIE QUAND LA VIE DU JOUEUR EST À 0
 function gameover() {
     if (life <= 0) {
@@ -272,6 +266,8 @@ function nextLevel() {
         resetPaddle();
         level++;
         addLife();
+        updateScore();
+        updateLevel();
     }
 };
 // MISE À JOUR DE VIE
@@ -280,6 +276,23 @@ function addLife() {
         life++;
     }
 }
+
+// MISE À JOUR DU SCORE MAX
+function updateScore() {
+    if (score > score_count) {
+        score_count = score;
+        score_max.textContent = score_count;
+    }
+}
+
+// MISE À JOUR DU NIVEAU MAX
+function updateLevel() {
+    if (level > level_count) {
+        level_count = level;
+        level_max.textContent = level_count;
+    }
+}
+
 // AFFICHAGE DES INFOS DE FIN DE PARTIE
 function showEndInfo(type = 'win') {
     game_over.style.visibility = 'visible';
@@ -297,7 +310,8 @@ function showEndInfo(type = 'win') {
         youWon.style.visibility = 'hidden';
         youWon.style.opacity = '0';
         youLose.style.visibility = 'visible';
-        // rules.style.visibility = "visible";
+        updateScore();
+        updateLevel();
     }
 }
 

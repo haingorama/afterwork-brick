@@ -5,11 +5,12 @@
 }
 
 body {
-    margin: 0;
-    color: #fff;
     background-color: #0a0014;
+    color: #fff;
+    margin: 0;
     /* background-color: #141428; */
     background-size: cover;
+    justify-content: center;
     overflow: hidden;
     font-family: 'Lekton', sans-serif;
 }
@@ -38,13 +39,6 @@ h2,
 h1 {
     text-align: center;
     font-family: 'PressStart2PRegular';
-}
-
-.game {
-    position: relative;
-    display: flex;
-    margin: 50px 0;
-    -webkit-filter: blur(0.4px);
 }
 
 .btn {
@@ -113,6 +107,12 @@ transition: opacity .3s ease-in, visibility .3s ease-in; */
     left: 27%;
 }
 
+#citation {
+    background-color: #6198d8;
+    padding: 10px;
+    border-radius: 5px;
+}
+
 #you-won,
 #you-lose {
     width: 160px;
@@ -134,12 +134,11 @@ transition: opacity .3s ease-in, visibility .3s ease-in; */
     background-color: #6898d8;
 }
 
-#canvas {
+canvas {
     background-color: #0a0014;
     opacity: unset;
     border-radius: 10px;
     display: block;
-    margin: 0 40px 50px;
     z-index: 0;
 }
 
@@ -147,9 +146,9 @@ transition: opacity .3s ease-in, visibility .3s ease-in; */
     border: 1px solid #6198d8;
     border-radius: 4px;
     width: 300px;
-    height: 450px;
+    height: 100px;
     padding: 10px;
-    margin-left: 50px;
+    /* margin-left: 50px; */
 }
 
 
