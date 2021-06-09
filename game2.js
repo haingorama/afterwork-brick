@@ -393,3 +393,362 @@ function audioManager() {
 restart.addEventListener('click', function() {
     location.reload();
 })
+
+/////////////////////////////////////
+//////////////////////////////////////
+/////////////////////////////////////
+// INITIALISATION DU CANVAS ET DÉFINITION DU CONTEXT
+const canvas2 = document.getElementById('canvas_player2');
+const ctx2 = canvas2.getContext('2d');
+
+canvas2.style.border = "1px solid #6198d8";
+ctx2.lineheight = 1;
+
+// CONSTANTE NÉCESSAIRES
+const PADDLE_WIDTH_PLAYER2 = 200;
+const PADDLE_MARGIN_BOTTOM_PLAYER2 = 20;
+const PADDLE_HEIGHT_PLAYER2 = 10;
+const BALL_RADIUS_PLAYER2 = 10;
+const SCORE_UNIT_PLAYER2 = 9;
+const MAX_LEVEL_PLAYER2 = 6;
+const MAX_LIFE_PLAYER2= 6;
+
+// VARIABLES NECESSAIRES
+let leftArrow = false;
+let rightArrow = false;
+let gameOver_player2 = false; /* Variable qui indique que le jeu est en marche*/
+let isPaused_player2 = false;
+let life_player2 = 3;
+let score_player2 = 0;
+let level_player2 = 1;
+let score_count_player2 = 0;
+let level_count_player2 = 0;
+
+// IMPORTATION DES ÉLÉMENTS DU DOM
+const game_over_player2 = document.getElementById('game-over_player2');
+const youWon_player2 = document.getElementById('you-won_player2');
+const youLose_player2 = document.getElementById('you-lose_player2');
+const restart_player2 = document.getElementById('restart_player2');
+const citations_player2 = document.getElementById('citation_player2');
+
+// IMPORTATION DE L'ÉLÉMENT HTML DU JOUEUR
+var nickname_player2 = document.getElementById('nickname_player2');
+var score_max_player2 = document.getElementById('score_max_player2');
+var level_max_player2 = document.getElementById('level_max_player2');
+
+// PROPRIÉTÉS DE LA RAQUETTE
+const paddle2 = {
+    x: (canvas2.width / 2) - (PADDLE_WIDTH_PLAYER2 / 2),
+    y: canvas2.height - PADDLE_MARGIN_BOTTOM_PLAYER2 - PADDLE_HEIGHT_PLAYER2,
+    w: PADDLE_WIDTH_PLAYER2,
+    h: PADDLE_MARGIN_BOTTOM_PLAYER2,
+    dx: 8
+};
+//  PROPRIÉTÉ DE LA BALLE
+const ball2 = {
+    x: canvas2.width / 2,
+    y: paddle.y - BALL_RADIUS_PLAYER2,
+    radius: BALL_RADIUS_PLAYER2,
+    velocity: 7,
+    dx: 3 * (Math.random() * 2 - 1),
+    dy: -1
+};
+// PROPRIÉTÉS DES BRIQUES
+const brickProp2 = {
+    row: 2,
+    column: 13,
+    w: 55,
+    h: 35,
+    padding: 3,
+    offsetX: 0,
+    offsetY: 40,
+    fillColor: '#fff',
+    visible: true,
+}
+// CRÉATION DE TOUTES LES BRIQUES
+let bricks2 = [];
+function createBricks2() {
+    for (let r = 0; r < brickProp2.row; r++) {
+        bricks2[r] = [];
+        for (let c = 0; c < brickProp2.column; c++) {
+            bricks2[r][c] = {
+                x: c * (brickProp2.w + brickProp2.padding) + brickProp2.offsetX,
+                y: r * (brickProp2.h + brickProp2.padding) + brickProp2.offsetY,
+                status: true,
+                ...brickProp2
+            }
+        }
+    }
+}
+createBricks2();
+// DESSINER LES BRIQUES
+function drawBricks2() {
+    bricks2.forEach(column => {
+        column.forEach(bricks2 => {
+            if (bricks2.status) {
+                ctx2.beginPath();
+                ctx2.rect(bricks2.x, bricks2.y, bricks2.w, bricks2.h);
+                ctx2.fillStyle = bricks2.fillColor;
+                ctx2.fill();
+                ctx2.closePath();
+            }
+        })
+    })
+}
+// DESSINER LA RAQUETTE
+function drawPaddle2() {
+    ctx2.beginPath();
+    ctx2.fillStyle = '#B5B4B4';
+    ctx2.fillRect(paddle2.x, paddle2.y, paddle2.w, paddle2.h);
+    ctx2.strokeStyle = '#B5B4B4';
+    ctx2.strokeRect(paddle2.x, paddle2.y, paddle2.w, paddle2.h);
+    ctx2.closePath();
+};
+//  DESSINER LA BALLE
+function drawBall2() {
+    ctx2.beginPath();
+    ctx2.arc(ball2.x, ball2.y, ball2.radius, 0, Math.PI * 2);
+    ctx2.fillStyle = 'yellow';
+    ctx2.fill();
+    ctx2.strokeStyle = 'yellow'
+    ctx2.stroke();
+    ctx2.closePath();
+};
+// COLLISION BALLE - BRIQUE
+function bbCollision2() {
+    bricks2.forEach(column => {
+        column.forEach(bricks2 => {
+            if (bricks2.status) {
+                if (ball2.x + ball2.radius > bricks2.x &&
+                    ball2.x - ball2.radius < bricks2.x + bricks2.w &&
+                    ball2.y + ball2.radius > bricks2.y &&
+                    ball2.y - ball2.radius < bricks2.y + bricks2.h) {
+                    BRICK_HIT2.play();
+                    ball2.dy *= -1;
+                    bricks2.status = false;
+                    score_player2 += SCORE_UNIT_PLAYER2;
+                }
+            }
+        })
+    })
+}
+// INTÉRACTION BALLE - MUR
+function bwCollision2() {
+    // Collision sur les axes X
+    if (ball2.x + ball2.radius > canvas2.width || ball2.x - ball2.radius < 0) {
+        WALL_HIT.play();
+        ball2.dx *= -1;
+    }
+    // Collision sur l'axe supérieur
+    if (ball2.y - ball2.radius < 0) {
+        WALL_HIT.play();
+        ball2.dy *= -1;
+    }
+    // Collision entrainant une perte de vie
+    if (ball2.y + ball2.radius > canvas2.height) {
+        LIFE_LOST.play();
+        life_player2--;
+        resetBall2();
+        resetPaddle2();
+    }
+};
+// INTÉRACTION BALLE - RAQUETTE
+function bpCollision2() {
+    if (ball2.x + ball2.radius > paddle2.x &&
+        ball2.x - ball2.radius < paddle2.x + paddle2.w &&
+        ball2.y + ball2.radius > paddle2.y) {
+        PADDLE_HIT2.play();
+        let collidePoint = ball2.x - (paddle2.x + paddle2.w / 2);
+        collidePoint = collidePoint / (paddle2.w / 2);
+        let angle = collidePoint * Math.PI / 3;
+        ball2.dx = ball2.velocity * Math.sin(angle);
+        ball2.dy = -ball2.velocity * Math.cos(angle);
+    }
+};
+function resetBall2() {
+    ball2.x = canvas2.width / 2;
+    ball2.y = paddle2.y - BALL_RADIUS_PLAYER2;
+    ball2.dx = 3 * (Math.random() * 2 - 1);
+    ball2.dy = -3;
+};
+// MISE EN PLACE DES TOUCHES DE CONTROLES DE LA RAQUETTE
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Left' || e.key === 'ArrowLeft') {
+        leftArrow = true;
+    } else if (e.key === 'Right' || e.key === 'ArrowRight') {
+        rightArrow = true;
+    }
+});
+document.addEventListener('keyup', function(e) {
+    if (e.key === 'Left' || e.key === 'ArrowLeft') {
+        leftArrow = false;
+    } else if (e.key === 'Right' || e.key === 'ArrowRight') {
+        rightArrow = false;
+    }
+});
+// ON CRÉE LA FONCTION POUR FAIRE SE DÉPLACER LA RAQUETTE
+function movePaddle2() {
+    if (leftArrow && paddle2.x > -5) {
+        paddle2.x -= paddle2.dx;
+    } else if (rightArrow && paddle2.x + paddle2.w < canvas2.width + 5) {
+        paddle2.x += paddle2.dx;
+    }
+}
+function resetPaddle2() {
+    paddle2.x = (canvas2.width / 2) - (PADDLE_WIDTH_PLAYER2 / 2);
+    paddle2.y = canvas2.height - PADDLE_MARGIN_BOTTOM_PLAYER2 - PADDLE_HEIGHT_PLAYER2;
+}
+// ON CRÉE LA FONCTION POUR QUE LA BALLE SE DÉPLACE
+function moveBall2() {
+    ball2.x += ball2.dx;
+    ball2.y += ball2.dy;
+}
+// AFFICHER LES STATISTIQUES DU JEU
+function showStats2(img, iposX, iposY, text = '', tPosX = null, tPosY = null) {
+    ctx2.fillStyle = '#fff';
+    ctx2.font = '20px sans-serif';
+    ctx2.fillText(text, tPosX, tPosY)
+    ctx2.drawImage(img, iposX, iposY, width = 20, height = 20);
+}
+// ON CRÉE LA FONCTION QUI PERMET D'ARRETER LA PARTIE QUAND LA VIE DU JOUEUR EST À 0
+function gameover_player2() {brickProp2
+    if (life_player2 <= 0) {
+        showEndInfo2('lose');
+        gameOver_player2 = true;
+    }
+}
+// ON CRÉE LA FONCTION POUR PASSER AU NIVEAU SUIVANT
+function nextLevel2() {
+    let isLevelUp = true;
+    for (let r = 0; r < brickProp2.row; r++) {
+        for (let c = 0; c < brickProp2.column; c++) {
+            isLevelUp = isLevelUp && !bricks2[r][c].status;
+        }
+    }
+    if (isLevelUp) {
+        WIN.play();
+        if (level_player2 >= MAX_LEVEL_PLAYER2) {
+            showEndInfo2();
+            gameOver_player2 = true;
+            return;
+        }
+        brickProp2.row += 1;
+        createBricks2();
+        ball2.velocity += 1;
+        resetBall();
+        resetPaddle2();
+        level_player2++;
+        addLife2();
+        updateScore2();
+        updateLevel2();
+    }
+};
+// MISE À JOUR DE VIE
+function addLife2() {
+    if (MAX_LIFE_PLAYER2 > life_player2) {
+        life_player2++;
+    }
+}
+// MISE À JOUR DU SCORE MAX
+function updateScore2() {
+    if (score_player2 > score_count_player2) {
+        score_count_player2 = score_player2;
+        score_max_player2.textContent = score_count_player2;
+    }
+}
+// MISE À JOUR DU NIVEAU MAX
+function updateLevel2() {
+    if (level_player2 > level_count_player2) {
+        level_count_player2 = level_player2;
+        level_max_player2.textContent = level_count_player2;
+    }
+}
+// AFFICHAGE DES INFOS DE FIN DE PARTIE
+function showEndInfo2(type = 'win') {
+    game_over_player2.style.visibility = 'visible';
+    game_over_player2.style.opacity = '1';
+    // Si le joueur gagne
+    if (type === 'win') {
+        youWon_player2.style.visibility = 'visible';
+        youLose_player2.style.visibility = 'hidden';
+        youLose_player2.style.opacity = '0';
+        citation_player2.style.visibility = 'hidden';
+        // Si le joueur perd
+    } else {
+        youWon_player2.style.visibility = 'hidden';
+        youWon_player2.style.opacity = '0';
+        youLose_player2.style.visibility = 'visible';
+        updateScore2();
+        updateLevel2();
+    }
+}
+// RELATIF À TOUS CE QUI CONCERNE L'AFFICHAGE
+function draw2() {
+    drawPaddle2();
+    drawBall2();
+    drawBricks2();
+    showStats2(SCORE_IMG, canvas2.width - 100, 5, score_player2, canvas2.width - 65, 22);
+    showStats2(LIFE_IMG, 35, 5, life_player2, 70, 22);
+    showStats2(LEVEL_IMG, canvas2.width / 2 - 25, 5, level_player2, canvas2.width / 2, 22);
+}
+// AFFICHER LA CITATION ALEATOIRE
+var citationAleatoires_player2 = [
+    "<p> <q> <i>Le sentiment d'échec n'existe que dans notre façon de concevoir la réussite.</i> </q> <br> - John Joos</p>",
+    "<p> <q> <i>Ne jamais abandonner c'est gagner.</i></q> <br> -Internaute</p>",
+    "<p> <q><i>N'abandonne jamais puisque la lutte est nécessaire pour nos rêves.</i></q> <br> - Nithael</p>",
+    "<p> <q><i>On abandonne jamais si proche du but</i></q> <br> - Nidhal</p>",
+    "<p> <q><i>La plus belle réussite c'est de ne pas lâcher prise.</i></q> <br> - William Dubois</p>",
+    "<p> <q><i>Dans la vie, toutes les réussites sont des échecs qui ont raté.</i></q> <br> - Romain Gary </p>",
+    "<p> <q><i>Il n'y a pas de réussite facile ni d'échecs définitifs.</i></q> <br> - Marcel Proust</p>",
+    "<p> <q><i>Le plus important n'est pas le but lui-même, c'est de se battre pour l'atteindre.</i></q> <br> - Jan Carlzon</p>",
+    "<p> <q><i>Le commencement est beaucoup plus que la moitié de l'objectif.</i></q> <br> - Aristote</p>",
+    "<p> <q><i>Je suis folle de ce jeu.</i></q> <br> - Madame de Sévigné</p>",
+    "<p> <q><i>Gagner demande du talent, répéter demande du caractère.</i></q> <br> - John Wooden</p>",
+    "<p> <q><i>Quand tout est mis en oeuvre, alors l'échec n'est plus.</i></q> <br> - Alain Chauvineau</p>",
+    "<p> <q><i>Il y a une seule manière d'échouer, c'est d'abandonner avant d'avoir réussi.</i></q> <br> - Simon Vivian Makondo</p>",
+    "<p> <q><i>L'échec existe si et seulement si on le considère comme tel !</i></q> <br> - Johann Dizant </p>",
+    "<p> <q><i>L'échec est le seuil de la porte qui mène au succès.</i></q> <br> - Christian KAZADI</p>",
+    "<p> <q><i>Mieux vaut essayer pour échouer, que d'avoir honte et de ne jamais essayer.</i></q> <br> - Kouassi Sinan KOMENAN,</p>",
+];
+citations_player2.innerHTML = citationAleatoires_player2[Math.floor((citationAleatoires_player2.length) * Math.random())];
+// RELATIF À TOUS CE QUI CONCERNE L'INTERACTION & LES ANIMATIONS
+function update2() {
+    movePaddle2();
+    moveBall2();
+    bwCollision2();
+    bpCollision2();
+    bbCollision2();
+    gameover_player2();
+    nextLevel2();
+}
+function loop2() {
+    ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+    // Si le jeu n'est pas en pause, lancer le jeu
+    if (!isPaused_player2) {
+        draw2();
+        update2();
+    }
+    // Si le joueur perd afficher GameOver
+    if (!gameOver_player2) {
+        requestAnimationFrame(loop2);
+    };
+};
+loop2();
+//  GESTION DES ÉVENEMENTS AUDIO
+sound.addEventListener('click', audioManager2);
+function audioManager2() {
+    // Changer l'image
+    let imgSrc = sound.getAttribute('src');
+    let SOUND_IMG = imgSrc === 'images/sound_on.png' ? 'images/mute.png' : 'images/sound_on.png';
+    sound.setAttribute('src', SOUND_IMG);
+    // Modification des sons en fonction des etats
+    WALL_HIT.muted = !WALL_HIT.muted;
+    PADDLE_HIT2.muted = !PADDLE_HIT.muted;
+    BRICK_HIT2.muted = !BRICK_HIT.muted;
+    WIN.muted = !WIN.muted;
+    LIFE_LOST.muted = !LIFE_LOST.muted;
+};
+// RELANCER LE JEU
+restart_player2.addEventListener('click', function() {
+    location.reload();
+})

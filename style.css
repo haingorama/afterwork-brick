@@ -69,7 +69,6 @@ opacity: 0;
 transition: opacity .3s ease-in, visibility .3s ease-in; */
 }
 
-
 /* .rules*/
 
 .show {
@@ -93,7 +92,7 @@ transition: opacity .3s ease-in, visibility .3s ease-in; */
     transition: .1s ease-in-out;
 }
 
-#game-over {
+#game-over, #game-over_player2  {
     align-items: center;
     display: flex;
     flex-flow: column;
@@ -107,14 +106,14 @@ transition: opacity .3s ease-in, visibility .3s ease-in; */
     left: 27%;
 }
 
-#citation {
+#citation, #citation_player2  {
     background-color: #6198d8;
     padding: 10px;
     border-radius: 5px;
 }
 
 #you-won,
-#you-lose {
+#you-lose, #you-won_player2, #you-lose-player2  {
     width: 160px;
 }
 
@@ -150,7 +149,6 @@ canvas {
     padding: 10px;
     /* margin-left: 50px; */
 }
-
 
 /* Background Stars */
 
@@ -253,12 +251,9 @@ canvas {
     animation: move-twink-back 200s linear infinite;
 }
 
-
 /* **************************** */
 
-
 /* Accueil + Compte à rebours */
-
 
 /* ************************* */
 
@@ -431,7 +426,6 @@ a {
     opacity: 1;
     z-index: -8;
 }
-
 
 /*  CRT effect  */
 
