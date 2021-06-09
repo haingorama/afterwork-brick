@@ -18,11 +18,13 @@ body {
 h1 {
     margin: 50px 0;
     font-size: 2.6rem;
-    color: lightblue;
     font-family: PressStart2PRegular;
     font-weight: bold;
     letter-spacing: -2px;
     -webkit-filter: blur(1px);
+}
+h1, .h2 {
+    color: lightblue;;
 }
 
 h1 a:hover {
@@ -592,4 +594,18 @@ a {
     opacity: 0;
     z-index: 20;
     pointer-events: none;
+}
+
+/* ///chronometre */
+
+#chrono{
+    font-size: 30px;
+    width: 90px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button{
+    width:100px;
+    margin:5px;
 }

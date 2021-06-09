@@ -58,14 +58,29 @@
                     <img src="images/you-won.png" alt="" id="you-won">
                     <img src="images/game-over.png" alt="" id="you-lose">
                     <p id="citation"></p>
-                    <button type="button" id="restart" class="btn btn-outline-primary">Rejouer</button>
+                    <!-- <button type="button" id="restart" class="btn btn-outline-primary">Rejouer</button> -->
                 </div>
                 <canvas id="canvas" width="550" height="450"></canvas>
             </div>
 
         </div>
     </section>
-<section class="col-4"></section>
+    <section class="col-4">
+        <div class="">
+        <div class="row mt-6">
+            <div class="col m-2 border-dark d-flex justify-content-center ">
+                <div class="text-center border border-dark p-4">
+                    <h2 class="h2">Vous avez : <span id="chrono">00:00</span> secondes</h2>
+                    <button id="commencer">Jouer</button>
+                    <div class="d-none">
+                    <button id="arreter">Arrêter</button>
+                    <button id="initialiser">Initialiser</button>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    </section>
 <!-- JOUEUR 222222222222222222222222222-->
     <section id='start-player2' class="game crt col-4">
         <div class="row justify-content-center">
@@ -91,7 +106,7 @@
                     <img src="images/you-won.png" alt="" id="you-won_player2">
                     <img src="images/game-over.png" alt="" id="you-lose_player2">
                     <p id="citation_player2"></p>
-                    <button type="button" id="restart_player2" class="btn btn-outline-primary">Rejouer</button>
+                    <!-- <button type="button" id="restart_player2" class="btn btn-outline-primary">Rejouer</button> -->
                 </div>
                 <canvas id="canvas_player2" width="550" height="450"></canvas>
             </div>

@@ -29,7 +29,6 @@ let level_count = 0;
 const game_over = document.getElementById('game-over');
 const youWon = document.getElementById('you-won');
 const youLose = document.getElementById('you-lose');
-const restart = document.getElementById('restart');
 const sound = document.getElementById('sound');
 const citations = document.getElementById('citation');
 
@@ -389,11 +388,6 @@ function audioManager() {
     LIFE_LOST.muted = !LIFE_LOST.muted;
 };
 
-// RELANCER LE JEU
-restart.addEventListener('click', function() {
-    location.reload();
-})
-
 /////////////////////////////////////
 //////////////////////////////////////
 /////////////////////////////////////
@@ -428,7 +422,6 @@ let level_count_player2 = 0;
 const game_over_player2 = document.getElementById('game-over_player2');
 const youWon_player2 = document.getElementById('you-won_player2');
 const youLose_player2 = document.getElementById('you-lose_player2');
-const restart_player2 = document.getElementById('restart_player2');
 const citations_player2 = document.getElementById('citation_player2');
 
 // IMPORTATION DE L'ÉLÉMENT HTML DU JOUEUR
@@ -748,7 +741,78 @@ function audioManager2() {
     WIN.muted = !WIN.muted;
     LIFE_LOST.muted = !LIFE_LOST.muted;
 };
-// RELANCER LE JEU
-restart_player2.addEventListener('click', function() {
-    location.reload();
+
+// CHRONOMETRE 
+
+$(document).ready(function chrono(){
+    var centiemeSeconde=0;
+    var seconde=0;
+    var minute=0;
+    var heure=0;
+    var compteur=0;
+    var comptage;
+    
+    function chrono(){
+        if(seconde == 30){
+            clearInterval(comptage);
+            $(this).attr('disabled','disabled');
+            $('#initialiser').removeAttr('disabled');
+            $('#commencer').removeAttr('disabled').text('Rejouer');
+        }
+
+        else if(centiemeSeconde<99){
+            centiemeSeconde++;
+        }else{
+            centiemeSeconde=0;
+            if(seconde<59){
+                seconde++;
+            }else{
+                seconde=0;
+                if(minute<59){
+                    minute++;
+                }else{
+                    minute=0;
+                    heure++;
+                }
+            }
+        }
+        $('#chrono').text(minute+':'+seconde+':'+centiemeSeconde);}
+        $('#arreter').attr('disabled', 'disabled');
+        $('#initialiser').attr('disabled', 'disabled');
+        // Action du bouton arrêter
+        $('#commencer').click(function(){
+            comptage=setInterval(chrono,10);
+            $(this).attr('disabled','disabled');
+            $('#arreter').removeAttr('disabled','disabled');
+            $('#initialiser').attr('disabled','disabled');
+            const restart = document.getElementById('commencer');
+            restart.addEventListener('click', function() {
+            location.reload();
 })
+        });
+        // Action bouton arreter
+        $('#arreter').click(function(){
+            clearInterval(comptage);
+            $(this).attr('disabled','disabled');
+            $('#initialiser').removeAttr('disabled');
+            $('#commencer').removeAttr('disabled').text('Continuer');
+        });
+        //Action bouton initialiser
+        $('#initialiser').click(function(){
+            heure=0;
+            minute=0;
+            seconde=0;
+            $('#chrono').text('00:00');
+            $(this).attr('disabled','disabled');
+            $('#arreter').attr('disabled','disabled');
+            $('#commencer').removeAttr('disabled').text('Continuer');
+        });
+
+        //on arrete à 30 secondes 
+        // if(seconde==29 && centiemeSeconde==59){
+        //     document.getElementById("arreter").click;
+        // }
+
+    });
+
+// RELANCER LE JEU
