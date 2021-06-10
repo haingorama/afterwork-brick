@@ -69,7 +69,6 @@ opacity: 0;
 transition: opacity .3s ease-in, visibility .3s ease-in; */
 }
 
-
 /* .rules*/
 
 .show {
@@ -83,7 +82,6 @@ transition: opacity .3s ease-in, visibility .3s ease-in; */
 }
 
 .sound-container {
-    position: absolute;
     top: 60%;
 }
 
@@ -104,7 +102,7 @@ transition: opacity .3s ease-in, visibility .3s ease-in; */
     margin-top: 10%;
     visibility: visible;
     width: 300px;
-    left: 20%;
+    left: 36%;
 }
 
 #citation {
@@ -153,7 +151,6 @@ canvas {
     padding: 10px;
     /* margin-left: 50px; */
 }
-
 
 /* Background Stars */
 
@@ -256,12 +253,9 @@ canvas {
     animation: move-twink-back 200s linear infinite;
 }
 
-
 /* **************************** */
 
-
 /* Accueil + Compte à rebours */
-
 
 /* ************************* */
 
@@ -434,7 +428,6 @@ a {
     opacity: 1;
     z-index: -8;
 }
-
 
 /*  CRT effect  */
 

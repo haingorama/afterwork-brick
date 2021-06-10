@@ -33,18 +33,16 @@
         <div class="row justify-content-center">
             <div class="col-12 mb-3">
                 <div class="row">
-                    <div class="user-account ml-3 col-6">
+                    <div class="user-account row" style="margin: 0 auto; width: 800px;" >
+                        <div class="col-6">
                         <h2 id="nikname"></h2>
                         <p>Votre score maximum : <img style="height: 20px;" src="images/score.png" alt="score maximum"> <b><span id="score_max"></span></b> <br> Votre niveau superieur : <img style="height: 18px;" src="images/level.png" alt="niveau superieur">
-                            <b> <span
-                                id="level_max"></span></b>
-                        </p>
-                    </div>
-
-                    <div class="col-3">
-                        <div class="sound-container">
-                            <img src="images/sound_on.png" alt="" id="sound">
+                            <b> <span id="level_max"></span></b><br>
                         </div>
+                        <div class="col-4 offset-2" style="text-align:end; margin-top: 13px;">
+                                <span ><img src="images/sound_on.png" alt="" id="sound" style="width:50px;height:50px;"></span>
+                            </div>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -55,7 +53,9 @@
                     <p id="citation"></p>
                     <button type="button" id="restart" class="btn btn-outline-primary">Rejouer</button>
                 </div>
-                <canvas id="canvas" width="750" height="650"></canvas>
+                <div style="margin: 0 auto; width: 800px;">
+                <canvas id="canvas" width="800" height="650"></canvas>
+                </div>
             </div>
 
         </div>
