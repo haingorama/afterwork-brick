@@ -295,7 +295,7 @@ a {
 }
 
 .titlefont {
-    top: 15%;
+    top: 10%;
     left: 2%;
     width: 96%;
     text-align: center;
@@ -309,10 +309,10 @@ a {
 }
 
 .startfont {
-    top: 45%;
+    top: 47%;
     font-size: 50px;
-    width: 220px;
-    left: -110px;
+    width: 370px;
+    left: -194px;
     text-align: center;
     margin-left: 50%;
     letter-spacing: -3px;
@@ -608,4 +608,83 @@ a {
 button{
     width:100px;
     margin:5px;
+}
+
+/* ----Page choose.html----  */
+.startfont1, .startfont2 {
+    top: 50%;
+    font-size: 50px;
+    width: 255px;
+    text-align: center;
+    margin-left: 50%;
+    letter-spacing: -3px;
+    border: 3px solid lightblue;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 2.5rem;
+}
+.startfont1 {
+    left: -277px;
+}
+.startfont2 {
+    left: 50px;
+}
+
+/* ----Page rules1.html---- */
+.text-field {
+    top: 24%;
+    left: 26%;
+    width: 48%;
+    text-align: justify;
+    font-size: 1.6rem;
+    letter-spacing: -2px;
+}
+.text-field span, .rules-players span {
+    /* color: palevioletred; */
+    color: palegreen;
+}
+.startfont3, .startfont4 {
+    top: 59%;
+    font-size: 50px;
+    width: 370px;
+    left: -194px;
+    text-align: center;
+    margin-left: 50%;
+    letter-spacing: -3px;
+    border: 3px solid lightblue;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 2.5rem;
+}
+
+/* ----Page rules2.html---- */
+.rules-players {
+    margin-top: 13%;
+    width: 1339px;
+    display: flex;
+    color: lightblue;
+    font-family: PressStart2PRegular;
+    font-weight: bold;
+    letter-spacing: -2px;
+    -webkit-filter: blur(1px);
+    font-size: 1.4rem;
+    padding: 0px 10px;
+    margin-left: 12%;
+}
+.startfont4 {
+    top:70%
+}
+.player-section {
+    margin-left: 40px;
+}
+.rules-players h2 {
+    font-size: 2rem;
+}
+.dev-footer {
+    top: 90%;
+    width: 80%;
+    left: 10%;
+    text-align: center;
+    font-size: 25px;
+    letter-spacing: -3px;
 }

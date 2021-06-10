@@ -758,6 +758,8 @@ $(document).ready(function chrono(){
             $(this).attr('disabled','disabled');
             $('#initialiser').removeAttr('disabled');
             $('#commencer').removeAttr('disabled').text('Rejouer');
+            isPaused = true;
+            isPaused_player2 =true;
         }
 
         else if(centiemeSeconde<99){
@@ -808,11 +810,20 @@ $(document).ready(function chrono(){
             $('#commencer').removeAttr('disabled').text('Continuer');
         });
 
-        //on arrete à 30 secondes 
-        // if(seconde==29 && centiemeSeconde==59){
-        //     document.getElementById("arreter").click;
-        // }
-
     });
 
-// RELANCER LE JEU
+// Condition sur le comptage des points quand le chrono s'arrête et que les deux joueurs n'ont pas finit de jouer
+function comparaison(score,score_player2){
+    let player =document.getElementById('compa');
+    if (score>score_player2) {
+        player_g.innerHTML="<div>Le joueur 1 a gagné</div>";
+    } else if (score<score_player2) {
+        player_g.innerHTML="<div>Le joueur 2 a gagné</div>";
+    }else  if (score==score_player2) {
+        player_g.innerHTML="<div>Vous êtes égaux !</div>";
+    }
+
+    return player.innerHTML=player_g;
+}
+
+// CONDITION QUAND UN JOUEUR TERMINE AVANT LE CHRONO (il faut arrêter le chrono)
