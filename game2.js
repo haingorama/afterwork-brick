@@ -807,7 +807,7 @@ $(document).ready(function chrono(){
             heure=0;
             minute=0;
             seconde=0;
-            $('#chrono').text('00:00');
+            $('#chrono').text('00');
             $(this).attr('disabled','disabled');
             $('#arreter').attr('disabled','disabled');
             $('#commencer').removeAttr('disabled').text('Continuer');
