@@ -781,17 +781,21 @@ $(document).ready(function chrono(){
         $('#chrono').text(minute+':'+seconde+':'+centiemeSeconde);}
         $('#arreter').attr('disabled', 'disabled');
         $('#initialiser').attr('disabled', 'disabled');
-        // Action du bouton arrêter
+        $(document).ready(function() {
+            comptage=setInterval(chrono,10);
+            
+        });
+        
+        // Action du bouton commencer
         $('#commencer').click(function(){
             comptage=setInterval(chrono,10);
             $(this).attr('disabled','disabled');
             $('#arreter').removeAttr('disabled','disabled');
             $('#initialiser').attr('disabled','disabled');
-            const restart = document.getElementById('commencer');
-            restart.addEventListener('click', function() {
             location.reload();
+            
 })
-        });
+        
         // Action bouton arreter
         $('#arreter').click(function(){
             clearInterval(comptage);
@@ -826,4 +830,4 @@ function comparaison(score,score_player2){
     return player.innerHTML=player_g;
 }
 
-// CONDITION QUAND UN JOUEUR TERMINE AVANT LE CHRONO (il faut arrêter le chrono)
+// CONDITION QUAND UN JOUEUR TERMINE AVANT LE CHRONO (il faut arrêter le)
