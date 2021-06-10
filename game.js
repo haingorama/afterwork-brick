@@ -11,7 +11,7 @@ const PADDLE_MARGIN_BOTTOM = 20;
 const PADDLE_HEIGHT = 10;
 const BALL_RADIUS = 10;
 const SCORE_UNIT = 9;
-const MAX_LEVEL = 6;
+const MAX_LEVEL = 4;
 const MAX_LIFE = 6;
 
 // VARIABLES NECESSAIRES
@@ -19,7 +19,7 @@ let leftArrow = false;
 let rightArrow = false;
 let gameOver = false; /* Variable qui indique que le jeu est en marche*/
 let isPaused = false;
-let life = 1;
+let life = 3;
 let score = 0;
 let level = 1;
 let score_count = 0;
