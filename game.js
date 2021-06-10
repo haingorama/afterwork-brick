@@ -19,7 +19,7 @@ let leftArrow = false;
 let rightArrow = false;
 let gameOver = false; /* Variable qui indique que le jeu est en marche*/
 let isPaused = false;
-let life = 3;
+let life = 1;
 let score = 0;
 let level = 1;
 let score_count = 0;
@@ -64,7 +64,7 @@ const brickProp = {
     w: 55,
     h: 35,
     padding: 3,
-    offsetX: 0,
+    offsetX: 25,
     offsetY: 40,
     fillColor: '#fff',
     visible: true,
