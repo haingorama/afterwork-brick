@@ -12,7 +12,7 @@ const PADDLE_HEIGHT = 10;
 const BALL_RADIUS = 10;
 const SCORE_UNIT = 9;
 const MAX_LEVEL = 6;
-const MAX_LIFE = 6;
+const MAX_LIFE = 3;
 
 // VARIABLES NECESSAIRES
 let touch_q = false;
@@ -58,11 +58,11 @@ const ball = {
 
 // PROPRIÉTÉS DES BRIQUES
 const brickProp = {
-    row: 2,
+    row: 3,
     column: 13,
     w: 55,
     h: 35,
-    padding: 3,
+    padding: 1,
     offsetX: 0,
     offsetY: 40,
     fillColor: '#fff',
@@ -237,7 +237,7 @@ function showStats(img, iposX, iposY, text = '', tPosX = null, tPosY = null) {
 function gameover() {
     if (life <= 0) {
         showEndInfo('lose');
-        gameOver = true;
+        stopAll();
     }
 }
 
@@ -263,18 +263,18 @@ function nextLevel() {
         ball.velocity += 1;
         resetBall();
         resetPaddle();
-        level++;
-        addLife();
+        // level++;
+        // addLife();
         updateScore();
         updateLevel();
     }
 };
 // MISE À JOUR DE VIE
-function addLife() {
-    if (MAX_LIFE > life) {
-        life++;
-    }
-}
+// function addLife() {
+//     if (MAX_LIFE > life) {
+//         life++;
+//     }
+// }
 
 // MISE À JOUR DU SCORE MAX
 function updateScore() {
@@ -321,7 +321,6 @@ function draw() {
     drawBricks();
     showStats(SCORE_IMG, canvas.width - 100, 5, score, canvas.width - 65, 22);
     showStats(LIFE_IMG, 35, 5, life, 70, 22);
-    showStats(LEVEL_IMG, canvas.width / 2 - 25, 5, level, canvas.width / 2, 22);
 }
 
 // AFFICHER LA CITATION ALEATOIRE
@@ -405,7 +404,7 @@ const PADDLE_HEIGHT_PLAYER2 = 10;
 const BALL_RADIUS_PLAYER2 = 10;
 const SCORE_UNIT_PLAYER2 = 9;
 const MAX_LEVEL_PLAYER2 = 6;
-const MAX_LIFE_PLAYER2= 6;
+const MAX_LIFE_PLAYER2= 3;
 
 // VARIABLES NECESSAIRES
 let leftArrow = false;
@@ -448,11 +447,11 @@ const ball2 = {
 };
 // PROPRIÉTÉS DES BRIQUES
 const brickProp2 = {
-    row: 2,
+    row: 3,
     column: 13,
-    w: 55,
+    w: 45,
     h: 35,
-    padding: 3,
+    padding: 1,
     offsetX: 0,
     offsetY: 40,
     fillColor: '#fff',
@@ -604,10 +603,10 @@ function showStats2(img, iposX, iposY, text = '', tPosX = null, tPosY = null) {
     ctx2.drawImage(img, iposX, iposY, width = 20, height = 20);
 }
 // ON CRÉE LA FONCTION QUI PERMET D'ARRETER LA PARTIE QUAND LA VIE DU JOUEUR EST À 0
-function gameover_player2() {brickProp2
+function gameover_player2() {
     if (life_player2 <= 0) {
         showEndInfo2('lose');
-        gameOver_player2 = true;
+        stopAll();
     }
 }
 // ON CRÉE LA FONCTION POUR PASSER AU NIVEAU SUIVANT
@@ -619,7 +618,7 @@ function nextLevel2() {
         }
     }
     if (isLevelUp) {
-        WIN.play();
+        WIN2.play();
         if (level_player2 >= MAX_LEVEL_PLAYER2) {
             showEndInfo2();
             gameOver_player2 = true;
@@ -682,7 +681,6 @@ function draw2() {
     drawBricks2();
     showStats2(SCORE_IMG, canvas2.width - 100, 5, score_player2, canvas2.width - 65, 22);
     showStats2(LIFE_IMG, 35, 5, life_player2, 70, 22);
-    showStats2(LEVEL_IMG, canvas2.width / 2 - 25, 5, level_player2, canvas2.width / 2, 22);
 }
 // AFFICHER LA CITATION ALEATOIRE
 var citationAleatoires_player2 = [
@@ -738,19 +736,19 @@ function audioManager2() {
     WALL_HIT.muted = !WALL_HIT.muted;
     PADDLE_HIT2.muted = !PADDLE_HIT.muted;
     BRICK_HIT2.muted = !BRICK_HIT.muted;
-    WIN.muted = !WIN.muted;
+    WIN2.muted = !WIN2.muted;
     LIFE_LOST.muted = !LIFE_LOST.muted;
 };
 
 // CHRONOMETRE 
 
+var comptage;
 $(document).ready(function chrono(){
     var centiemeSeconde=0;
     var seconde=0;
     var minute=0;
     var heure=0;
     var compteur=0;
-    var comptage;
     
     function chrono(){
         if(seconde == 30){
@@ -758,8 +756,8 @@ $(document).ready(function chrono(){
             $(this).attr('disabled','disabled');
             $('#initialiser').removeAttr('disabled');
             $('#commencer').removeAttr('disabled').text('Rejouer');
-            isPaused = true;
-            isPaused_player2 =true;
+            isPaused=true;
+            gameOver = true;
         }
 
         else if(centiemeSeconde<99){
@@ -792,7 +790,7 @@ $(document).ready(function chrono(){
             $(this).attr('disabled','disabled');
             $('#arreter').removeAttr('disabled','disabled');
             $('#initialiser').attr('disabled','disabled');
-            location.reload();
+            location.reload()
             
 })
         
@@ -816,18 +814,34 @@ $(document).ready(function chrono(){
 
     });
 
-// Condition sur le comptage des points quand le chrono s'arrête et que les deux joueurs n'ont pas finit de jouer
-function comparaison(score,score_player2){
-    let player =document.getElementById('compa');
-    if (score>score_player2) {
-        player_g.innerHTML="<div>Le joueur 1 a gagné</div>";
-    } else if (score<score_player2) {
-        player_g.innerHTML="<div>Le joueur 2 a gagné</div>";
-    }else  if (score==score_player2) {
-        player_g.innerHTML="<div>Vous êtes égaux !</div>";
+    //FONCTION POUR QUE LE JEU S'ARRETE
+    function stopAll() {
+        if (life<1) {
+            isPaused_player2=true;
+            isPaused=true;
+            showEndInfo2();
+            // gameOver = true;
+            
+        } else if (life_player2<1) {
+            isPaused_player2=true;
+            isPaused=true;
+            showEndInfo();
+            // gameOver_player2 = true;
+          
+        }
     }
+// Condition sur le comptage des points quand le chrono s'arrête et que les deux joueurs n'ont pas finit de jouer
+// function comparaison(score,score_player2){
+//     let player =document.getElementById('compa');
+//     if (score>score_player2) {
+//         player_g.innerHTML="<div>Le joueur 1 a gagné</div>";
+//     } else if (score<score_player2) {
+//         player_g.innerHTML="<div>Le joueur 2 a gagné</div>";
+//     }else  if (score==score_player2) {
+//         player_g.innerHTML="<div>Vous êtes égaux !</div>";
+//     }
 
-    return player.innerHTML=player_g;
-}
+//     return player.innerHTML=player_g;
+// }
 
 // CONDITION QUAND UN JOUEUR TERMINE AVANT LE CHRONO (il faut arrêter le)

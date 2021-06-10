@@ -15,6 +15,8 @@ const LIFE_LOST2 = new Audio('sounds/life_lost.mp3');
 
 const LEVEL_IMG = new Image();
 LEVEL_IMG.src = 'images/level.png'
+const LEVEL_IMG2 = new Image();
+LEVEL_IMG2.src = 'images/level.png'
 const LIFE_IMG = new Image();
 LIFE_IMG.src = 'images/life.png'
 const SCORE_IMG = new Image();
