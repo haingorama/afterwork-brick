@@ -752,6 +752,7 @@ $(document).ready(function chrono(){
     
     function chrono(){
         if(seconde == 30){
+            gameEnd();
             clearInterval(comptage);
             $(this).attr('disabled','disabled');
             $('#initialiser').removeAttr('disabled');
@@ -830,6 +831,25 @@ $(document).ready(function chrono(){
           
         }
     }
+
+    function gameEnd() {
+        if (score> score_player2) {
+            isPaused_player2=true;
+            isPaused=true;
+            showEndInfo();
+        } else if (score<score_player2) {
+            isPaused_player2=true;
+            isPaused=true;
+            showEndInfo2();
+        }
+        // if (second=30) {
+        //     isPaused_player2=true;
+        //     isPaused=true; 
+        //     showEndInfo2();
+        //     showEndInfo();
+        // }
+    }
+
 // Condition sur le comptage des points quand le chrono s'arrête et que les deux joueurs n'ont pas finit de jouer
 // function comparaison(score,score_player2){
 //     let player =document.getElementById('compa');
